@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const handleMouseOver = () => {
@@ -28,6 +28,19 @@ function App() {
   };
 
   const [isClicked, setIsClicked] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   return (
     <div className="App">
@@ -52,17 +65,21 @@ function App() {
                 }}
               >
                 <button
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={() => {
-                    setIsClicked(true);
-                    document.querySelector("#no-btn").remove();
+                    if (isMobile) {
+                      handleMouseOver();
+                    } else {
+                      setIsClicked(true);
+                      document.querySelector("#no-btn").remove();
+                    }
                   }}
                 >
                   Yes
                 </button>
                 <button
                   id="no-btn"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   onMouseOver={handleMouseOver}
                 >
                   No

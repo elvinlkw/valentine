@@ -1,7 +1,21 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
   const handleMouseOver = () => {
     document.querySelector("#no-btn").remove();
 
@@ -10,13 +24,15 @@ function App() {
     let button = document.createElement("button");
     button.id = "no-btn";
     button.style.position = "absolute";
-    const randomTop = Math.random() * 100;
-    const randomLeft = Math.random() * 100;
+
+    const thresh = isMobile ? 80 : 100;
+    const randomTop = Math.random() * thresh;
+    const randomLeft = Math.random() * thresh;
     button.style.top = `${randomTop}vh`;
     button.style.left = `${randomLeft}vw`;
     button.classList.add("btn");
     button.classList.add("btn-secondary");
-    let text = document.createTextNode("No");
+    let text = document.createTextNode("No!");
 
     // appending text to button
     button.appendChild(text);
@@ -66,7 +82,7 @@ function App() {
                   onMouseOver={handleMouseOver}
                   onClick={handleMouseOver}
                 >
-                  No
+                  No!
                 </button>
               </div>
             </>

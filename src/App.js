@@ -38,7 +38,7 @@ function App() {
           ) : (
             <>
               <h1>Mary Jane</h1>
-              <h1>Will you be my valentine?</h1>
+              <h1>Do you wanna be my valentine?</h1>
             </>
           )}
           {!isClicked && (

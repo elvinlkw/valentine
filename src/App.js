@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   const handleMouseOver = () => {
@@ -12,8 +12,8 @@ function App() {
     button.style.position = "absolute";
     const randomTop = Math.random() * 100;
     const randomLeft = Math.random() * 100;
-    button.style.top = `${randomTop}%`;
-    button.style.left = `${randomLeft}%`;
+    button.style.top = `${randomTop}vh`;
+    button.style.left = `${randomLeft}vw`;
     button.classList.add("btn");
     button.classList.add("btn-secondary");
     let text = document.createTextNode("No");
@@ -28,19 +28,6 @@ function App() {
   };
 
   const [isClicked, setIsClicked] = useState(false);
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  const isMobile = width <= 768;
 
   return (
     <div className="App">
@@ -65,22 +52,19 @@ function App() {
                 }}
               >
                 <button
-                  className="btn btn-primary"
+                  class="btn btn-primary"
                   onClick={() => {
-                    if (isMobile) {
-                      handleMouseOver();
-                    } else {
-                      setIsClicked(true);
-                      document.querySelector("#no-btn").remove();
-                    }
+                    setIsClicked(true);
+                    document.querySelector("#no-btn").remove();
                   }}
                 >
                   Yes
                 </button>
                 <button
                   id="no-btn"
-                  className="btn btn-secondary"
+                  class="btn btn-secondary"
                   onMouseOver={handleMouseOver}
+                  onClick={handleMouseOver}
                 >
                   No
                 </button>

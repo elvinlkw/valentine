@@ -52,7 +52,7 @@ function App() {
                 }}
               >
                 <button
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   onClick={() => {
                     setIsClicked(true);
                     document.querySelector("#no-btn").remove();
@@ -62,7 +62,7 @@ function App() {
                 </button>
                 <button
                   id="no-btn"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   onMouseOver={handleMouseOver}
                   onClick={handleMouseOver}
                 >
